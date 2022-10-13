@@ -19,6 +19,7 @@ app.get("/api/notes", (req, res) => {
 });
 
 app.use("/api/users" , userRoutes);
+// app.use(userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
