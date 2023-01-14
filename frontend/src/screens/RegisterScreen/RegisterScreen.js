@@ -54,6 +54,34 @@ const RegisterScreen = () => {
     }
   };
 
+  const postDetails = (pics) => {
+    if (!pics) {
+      return setPicMessage("Please select an Image");
+    } 
+    setPicMessage(null);
+    
+    if(pics.type==='image/jpeg' || pics.type === 'image/png') {
+      const data = new FormData();
+      data.append('file',pics)
+      data.append('upload_preset','notezipper')
+      data.append('cloud_name','dude4arhz')
+      fetch("https://api.cloudinary.com/v1_1/dude4arhz/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setPic(data.url.toString());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      return setPicMessage("Please Select an Image");
+    }
+  };
+  
   return (
     <MainScreen title="REGISTER">
       <div className="loginContainer">
