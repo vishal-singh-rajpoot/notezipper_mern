@@ -1,5 +1,5 @@
 const express = require("express");
-const notes = require("./data/notes");
+// const notes = require("./data/notes");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const userRoutes=require('./routes/userRoutes');
@@ -16,13 +16,14 @@ app.get("/", (req, res) => {
   res.send("API is running..");
 });
 
-app.get("/api/notes", (req, res) => {
-  res.json(notes);
-});
+// app.get("/api/notes", (req, res) => {
+//   res.json(notes);
+// });
 
 app.use("/api/users" , userRoutes);
 // app.use(userRoutes);
 app.use("/api/notes", noteRoutes);
+// app.use(noteRoutes);
 
 app.use(notFound)
 app.use(errorHandler)
