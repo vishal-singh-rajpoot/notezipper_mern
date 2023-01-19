@@ -3,7 +3,8 @@ const {
   getNotes,
   createNote,
   getNoteById,
-  UpdateNote
+  UpdateNote,
+  DeleteNote
 } = require("../controllers/noteController");
 const { protect } = require("../middlewares/authMiddleware");
 
@@ -11,8 +12,7 @@ const router = express.Router();
 
 router.route("/").get(protect, getNotes);
 router.route("/create").post(protect, createNote);
-router.route("/:id").get(getNoteById).put(protect, UpdateNote);
-// .delete();
+router.route("/:id").get(getNoteById).put(protect, UpdateNote).delete(protect, DeleteNote);
 
 // router.get("/api/notes" , getNotes);
 
