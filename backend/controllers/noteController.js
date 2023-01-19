@@ -28,4 +28,19 @@ const createNote = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { getNotes, createNote };
+//@description     Fetch single Note
+//@route           GET /api/notes/:id
+//@access          Public
+const getNoteById = asyncHandler(async (req, res) => {
+  const note = await Note.findById(req.params.id);
+
+  if (note) {
+    res.json(note);
+  } else {
+    res.status(404).json({ message: "Note not found" });
+  }
+
+  // res.json(note);
+});
+
+module.exports = { getNotes, createNote, getNoteById };
