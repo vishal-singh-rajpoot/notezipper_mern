@@ -18,6 +18,9 @@ const MyNotes = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const noteCreate = useSelector((state) => state.noteCreate);
+  const { success: successCreate } = noteCreate;
+
   // const [notes, setNotes] = useState([]);
 
   const deleteHandler = (id) => {
@@ -34,7 +37,7 @@ const MyNotes = () => {
   console.log(notes);
 
   const history = useHistory();
-  
+
   // React hook - fired up whenever a component is rendered , call api
   useEffect(() => {
     // fetchNotes();
@@ -42,7 +45,7 @@ const MyNotes = () => {
     if (!userInfo) {
       history.push("/");
     }
-  }, [dispatch]);
+  }, [dispatch, successCreate, history, userInfo]);
 
   return (
     <MainScreen title={`Welcome back ${userInfo.name}..`}>
@@ -53,7 +56,7 @@ const MyNotes = () => {
       </Link>
       {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
       {loading && <Loading />}
-      {notes?.map((note) => (
+      {notes?.reverse().map((note) => (
         <Accordion key={note._id}>
           <Accordion.Item eventkey="0">
             <Card style={{ margin: 10 }}>
@@ -94,7 +97,7 @@ const MyNotes = () => {
                   <blockquote className="blockquote mb-0">
                     <p>{note.content}</p>
                     <footer className="blockquote-footer">
-                      Creater on - {" "}
+                      Creater on -{" "}
                       <cite title="Source Title">
                         {note.createdAt.substring(0, 10)}
                       </cite>
