@@ -45,7 +45,7 @@ const MyNotes = () => {
   }, [dispatch]);
 
   return (
-    <MainScreen title="Welcome back Jay Mehta">
+    <MainScreen title={`Welcome back ${userInfo.name}..`}>
       <Link to="createnote">
         <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
           Create New Note
@@ -94,7 +94,10 @@ const MyNotes = () => {
                   <blockquote className="blockquote mb-0">
                     <p>{note.content}</p>
                     <footer className="blockquote-footer">
-                      Creater on - date
+                      Creater on - {" "}
+                      <cite title="Source Title">
+                        {note.createdAt.substring(0, 10)}
+                      </cite>
                     </footer>
                   </blockquote>
                 </Card.Body>
