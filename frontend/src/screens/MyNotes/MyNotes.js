@@ -5,7 +5,7 @@ import MainScreen from "../../components/MainScreen";
 // import axios from "axios";
 
 import { useDispatch, useSelector } from "react-redux";
-import { listNotes } from "../../actions/notesActions";
+import { deleteNoteAction, listNotes } from "../../actions/notesActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 
@@ -24,10 +24,18 @@ const MyNotes = () => {
   const noteUpdate = useSelector((state) => state.noteUpdate);
   const { success: successUpdate } = noteUpdate;
 
+  const noteDelete = useSelector((state) => state.noteDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = noteDelete;
+
   // const [notes, setNotes] = useState([]);
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
+      dispatch(deleteNoteAction(id))
     }
   };
 
@@ -48,7 +56,14 @@ const MyNotes = () => {
     if (!userInfo) {
       history.push("/");
     }
-  }, [dispatch, successCreate, history, userInfo, successUpdate]);
+  }, [
+    dispatch,
+    successCreate,
+    history,
+    userInfo,
+    successUpdate,
+    successDelete,
+  ]);
 
   return (
     <MainScreen title={`Welcome back ${userInfo.name}..`}>
@@ -57,6 +72,10 @@ const MyNotes = () => {
           Create New Note
         </Button>
       </Link>
+      {errorDelete && (
+        <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
+      )}
+      {loadingDelete && <Loading />}
       {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
       {loading && <Loading />}
       {notes?.reverse().map((note) => (
@@ -79,11 +98,11 @@ const MyNotes = () => {
                   </Accordion.Button>
                 </span>
                 <div>
-                  <Button href={`/note/${note.id}`}>Edit</Button>
+                  <Button href={`/note/${note._id}`}>Edit</Button>
                   <Button
                     variant="danger"
                     className="mx-2"
-                    onClick={deleteHandler}
+                    onClick={() => deleteHandler(note._id)}
                   >
                     Delete
                   </Button>
