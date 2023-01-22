@@ -8,6 +8,7 @@ import MyNotes from "./screens/MyNotes/MyNotes";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
 import CreateNote from "./screens/CreateNote/CreateNote";
+import SingleNote from "./screens/SingleNote/SingleNote";
 
 const App = () => (
   <BrowserRouter>
@@ -17,6 +18,7 @@ const App = () => (
       <Route exact path="/login" component={LoginScreen} />
       <Route exact path="/register" component={RegisterScreen} />
       <Route exact path="/createnote" component={CreateNote} />
+      <Route exact path="/note/:id" component={SingleNote} />
       <Route path="/mynotes" component={() => <MyNotes />} />
       {/* <LandingPage /> */}
     </main>

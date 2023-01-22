@@ -21,6 +21,9 @@ const MyNotes = () => {
   const noteCreate = useSelector((state) => state.noteCreate);
   const { success: successCreate } = noteCreate;
 
+  const noteUpdate = useSelector((state) => state.noteUpdate);
+  const { success: successUpdate } = noteUpdate;
+
   // const [notes, setNotes] = useState([]);
 
   const deleteHandler = (id) => {
@@ -45,7 +48,7 @@ const MyNotes = () => {
     if (!userInfo) {
       history.push("/");
     }
-  }, [dispatch, successCreate, history, userInfo]);
+  }, [dispatch, successCreate, history, userInfo, successUpdate]);
 
   return (
     <MainScreen title={`Welcome back ${userInfo.name}..`}>
